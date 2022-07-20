@@ -34,7 +34,7 @@ public class Pesan extends AppCompatActivity {
         nope= "+62895346291925";
         BigInteger nopenya = new BigInteger(nope);
         String url1 = "https://api.whatsapp.com/send?phone=" + nopenya + "&text=Halo, Saya ingin membuat Instalasi Gas, dengan data sebagai Berikut:"+"\nJumlah Kompor :"+kompor+
-                "\nJumlah Tabung :"+tabung+"\nJarak kompor ke Tabung Gas :"+jarak+"\nDapatkah saya mendapat Penawaran dari CV. Pandu Jaya?";
+                "\nJumlah Tabung :"+tabung+"\nJarak kompor ke Tabung Gas :"+ jarak+"\nDapatkah saya mendapat Penawaran dari CV. Pandu Jaya?";
         Intent ii = new Intent(Intent.ACTION_VIEW);
         ii.setData(Uri.parse(url1));
         startActivity(ii);
