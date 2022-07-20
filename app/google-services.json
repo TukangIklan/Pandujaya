@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "174739917948",
+    "firebase_url": "https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ramore-skripsi",
+    "storage_bucket": "ramore-skripsi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174739917948:android:20377d52736443573c0df9",
+        "android_client_info": {
+          "package_name": "com.skripsi.pandujaya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174739917948-qut1utaa9f4olmup27nhg68entttg55p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCItMfm3HDOQpzMwZUx5fibU9LCcdpHO98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174739917948-qut1utaa9f4olmup27nhg68entttg55p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
