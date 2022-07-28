@@ -16,6 +16,21 @@
         android:theme="@style/Theme.PanduJaya"
         tools:targetApi="31">
         <activity
+            android:name=".Pilihpipa"
+            android:exported="false" />
+        <activity
+            android:name=".Pilihtabung"
+            android:exported="false" />
+        <activity
+            android:name=".jumlahpesanan"
+            android:exported="false" />
+        <activity
+            android:name=".holderbarang"
+            android:exported="false" />
+        <activity
+            android:name=".Pilihkompor"
+            android:exported="false" />
+        <activity
             android:name=".Resetpass"
             android:exported="false" />
         <activity

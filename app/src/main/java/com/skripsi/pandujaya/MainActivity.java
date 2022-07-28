@@ -15,14 +15,11 @@ import com.google.firebase.database.DatabaseReference;
 public class MainActivity extends AppCompatActivity {
     ProgressDialog pd;
     private FirebaseAuth mAuth;
-    private DatabaseReference mdatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-
-
     }
     public void ceklogin(View v){
         pd = new ProgressDialog(MainActivity.this);
