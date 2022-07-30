@@ -21,7 +21,7 @@ import java.text.DecimalFormatSymbols;
 public class jumlahpesanan extends AppCompatActivity {
     TextView tvjenisp, tvjumlahp,tvtotalp,tvharga,tva;
     ImageView ivp;
-    Integer jpesan, jjumlah;
+    Integer jpesan, hargatotal;
     String hargad,tipe;
     private DatabaseReference mdatabase;
     private FirebaseAuth mAuth;
@@ -68,7 +68,7 @@ public class jumlahpesanan extends AppCompatActivity {
     }
     private void updateharga(Integer jumlah){
         Integer total = Integer.parseInt(hargad);
-        Integer hargatotal = total * jumlah;
+        hargatotal = total * jumlah;
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
@@ -91,7 +91,8 @@ public class jumlahpesanan extends AppCompatActivity {
         mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
         mdatabase.child("user").child(uuid).child("pesanan").child(tipe).child("jenis").setValue(tvjenisp.getText());
         mdatabase.child("user").child(uuid).child("pesanan").child(tipe).child("jumlah").setValue(tvjumlahp.getText());
-        mdatabase.child("user").child(uuid).child("pesanan").child(tipe).child("total").setValue(tvtotalp.getText());
+        mdatabase.child("user").child(uuid).child("pesanan").child(tipe).child("total").setValue(String.valueOf(hargatotal));
+
         startActivity(new Intent(jumlahpesanan.this, Pesan.class));
         jumlahpesanan.this.finish();
     }

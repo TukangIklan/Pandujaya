@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +20,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class Pesan extends AppCompatActivity {
     private DatabaseReference mdatabase;
     private FirebaseAuth mAuth;
     String uuid;
-    LinearLayout ll;
-    TextView tvatas, tvk1, tvk2, tvk3, tvt1, tvt2, tvt3,tvp1,tvp2,tvp3;
+    FrameLayout fl;
+    TextView tvatas, tvk1, tvk2, tvk3, tvt1, tvt2, tvt3,tvp1,tvp2,tvp3,tvtotal;
+    Integer a,b,c,d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class Pesan extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         uuid = user.getUid();
-        ll = findViewById(R.id.ll);
+        fl = findViewById(R.id.fl);
         tvk1 = findViewById(R.id.tvk1);
         tvk2 = findViewById(R.id.tvk2);
         tvk3 = findViewById(R.id.tvk3);
@@ -44,6 +49,11 @@ public class Pesan extends AppCompatActivity {
         tvt2 = findViewById(R.id.textView33);
         tvt3 = findViewById(R.id.textView34);
         tvatas = findViewById(R.id.textView12);
+        tvtotal = findViewById(R.id.textView19);
+        a = 0;
+        b=0;
+        c=0;
+        d=0;
         cekpesanan();
     }
 
@@ -68,12 +78,12 @@ public class Pesan extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("pesanan")) {
-                    ll.setVisibility(View.VISIBLE);
+                    fl.setVisibility(View.VISIBLE);
                     cekkompor();
                     cekpipa();
                     cektabung();
                 } else {
-                    ll.setVisibility(View.GONE);
+                    fl.setVisibility(View.GONE);
                     tvatas.setText("Keranjang Pesanan Anda Kosong");
 
                 }
@@ -147,9 +157,18 @@ public class Pesan extends AppCompatActivity {
                 Model post = dataSnapshot.getValue(Model.class);
                 tvk1.setText(post.getJenis());
                 tvk2.setText(post.getJumlah());
-                tvk3.setText(post.getTotal());
-                Toast.makeText(Pesan.this, post.getJenis(), Toast.LENGTH_SHORT).show();
-                // ..
+                DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setMonetaryDecimalSeparator(',');
+                formatRp.setGroupingSeparator('.');
+
+                kursIndonesia.setDecimalFormatSymbols(formatRp);
+                String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(post.getTotal())));
+                tvk3.setText(hargarp);
+                a = Integer.parseInt(post.getTotal());
+                updateharga();
             }
 
             @Override
@@ -169,9 +188,18 @@ public class Pesan extends AppCompatActivity {
                 Model post = dataSnapshot.getValue(Model.class);
                 tvp1.setText(post.getJenis());
                 tvp2.setText(post.getJumlah());
-                tvp3.setText(post.getTotal());
-                Toast.makeText(Pesan.this, post.getJenis(), Toast.LENGTH_SHORT).show();
-                // ..
+                DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setMonetaryDecimalSeparator(',');
+                formatRp.setGroupingSeparator('.');
+
+                kursIndonesia.setDecimalFormatSymbols(formatRp);
+                String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(post.getTotal())));
+                tvp3.setText(hargarp );
+                b = Integer.parseInt(post.getTotal());
+                updateharga();
             }
 
             @Override
@@ -191,9 +219,18 @@ public class Pesan extends AppCompatActivity {
                 Model post = dataSnapshot.getValue(Model.class);
                 tvt1.setText(post.getJenis());
                 tvt2.setText(post.getJumlah());
-                tvt3.setText(post.getTotal());
-                Toast.makeText(Pesan.this, post.getJenis(), Toast.LENGTH_SHORT).show();
-                // ..
+                DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setMonetaryDecimalSeparator(',');
+                formatRp.setGroupingSeparator('.');
+
+                kursIndonesia.setDecimalFormatSymbols(formatRp);
+                String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(post.getTotal())));
+                tvt3.setText(hargarp );
+                c = Integer.parseInt(post.getTotal());
+                updateharga();
             }
 
             @Override
@@ -203,6 +240,28 @@ public class Pesan extends AppCompatActivity {
             }
         });
 
+    }
+    private void updateharga(){
+        if(a !=0){
+            d = a;
+        }
+        if(a !=0 && b !=0){
+            d = a+b;
+        }
+        if(a !=0 && b !=0 && c !=0){
+            d = a+b+c;
+        }
+
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+
+        formatRp.setCurrencySymbol("Rp ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(d)));
+        tvtotal.setText(hargarp);
     }
 
 }

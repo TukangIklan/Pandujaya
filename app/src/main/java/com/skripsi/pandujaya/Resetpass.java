@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,12 @@ public class Resetpass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resetpass);
         email = findViewById(R.id.etmaill);
+    }
+    public void proseslupa(View v){
+        cekemail();
+        if (bolmail){
+            lupapassword();
+        }
     }
     private void cekemail() {
         if (email.getText().length() < 1) {
