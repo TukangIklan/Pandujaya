@@ -4,66 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFECEC"
     tools:context=".Pesan">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/bg" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="pilihkompor"
-        android:text="Pilih Kompor"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView36">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/btn"
+                android:drawableStart="@drawable/dd"
+                android:fontFamily="@font/acme"
+                android:onClick="pilihkompor"
+                android:padding="8dp"
+                android:text="Pilih Kompor"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/btn"
+                android:drawableStart="@drawable/aa"
+                android:fontFamily="@font/acme"
+                android:onClick="pilihtab"
+                android:padding="8dp"
+                android:text="pilih tabung"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/btn"
+                android:drawableStart="@drawable/a"
+                android:fontFamily="@font/acme"
+                android:onClick="pilihpipa"
+                android:padding="8dp"
+                android:text="pilih tabung"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/acme"
         android:text="Keranjang Pesanan"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/fl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:onClick="pilihtab"
-        android:text="pilih tabung"
-        app:layout_constraintEnd_toStartOf="@+id/button7"
-        app:layout_constraintStart_toEndOf="@+id/button8"
-        app:layout_constraintTop_toTopOf="@+id/button8" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/fl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView12">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/kotak"
+        app:layout_constraintBottom_toTopOf="@+id/button10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/kotak">
 
             <LinearLayout
                 android:id="@+id/ll"
@@ -86,26 +116,72 @@
                         android:id="@+id/textView22"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
                         android:gravity="center"
-                        android:text="Jenis" />
+                        android:text="Jenis"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvk1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Kompor" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="Pilih Kompor"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView29"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Tabung" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="Pilih Tabung"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView32"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Pipa" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="Pilih Pipa"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingStart="4dp"
+                        android:paddingLeft="4dp"
+                        android:text="Jasa Instalasi"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:padding="4dp"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -119,32 +195,72 @@
                         android:id="@+id/textView23"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Jumlah" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="center"
+                        android:text="Qty"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvk2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView30"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView33"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView26"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:padding="4dp"
+                        android:paddingStart="4dp"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -158,33 +274,73 @@
                         android:id="@+id/textView25"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Total" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="center"
+                        android:text="Total"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tvk3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView34"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right" />
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/textView28"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
+                        android:gravity="right"
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/textView19"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/kotak"
+                        android:fontFamily="@font/acme"
                         android:gravity="right"
-                        android:text="TextView" />
+                        android:padding="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -193,26 +349,51 @@
     </FrameLayout>
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="pilihpipa"
-        android:text="pilih pipa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toTopOf="@+id/button6" />
-
-    <Button
         android:id="@+id/button10"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn"
+        android:backgroundTint="#FA7B6C"
+        android:fontFamily="@font/acme"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="30dp"
+        android:paddingRight="30dp"
         android:text="Pesan Sekarang"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/acme"
+        android:text="Pandu Teknik Store"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fl" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rva"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

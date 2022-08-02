@@ -21,7 +21,7 @@ import java.text.DecimalFormatSymbols;
 public class jumlahpesanan extends AppCompatActivity {
     TextView tvjenisp, tvjumlahp,tvtotalp,tvharga,tva;
     ImageView ivp;
-    Integer jpesan, hargatotal;
+    Integer jpesan, hargatotal,total,b;
     String hargad,tipe;
     private DatabaseReference mdatabase;
     private FirebaseAuth mAuth;
@@ -46,10 +46,14 @@ public class jumlahpesanan extends AppCompatActivity {
         tvtotalp.setText(harga);
         tva = findViewById(R.id.textView24);
         tva.setText(tipe);
+        updateharga(Integer.parseInt(tvjumlahp.getText().toString()));
 
 
     }
     public void tambah(View v){
+        if(tva.getText().equals("tabung")){
+
+        }
         jpesan = Integer.parseInt(tvjumlahp.getText().toString());
         String b = String.valueOf(jpesan+1);
         tvjumlahp.setText(b);
@@ -67,7 +71,7 @@ public class jumlahpesanan extends AppCompatActivity {
         }
     }
     private void updateharga(Integer jumlah){
-        Integer total = Integer.parseInt(hargad);
+        total = Integer.parseInt(hargad);
         hargatotal = total * jumlah;
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();

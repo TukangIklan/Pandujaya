@@ -2,9 +2,18 @@ package com.skripsi.pandujaya;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,17 +30,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 
 public class Pesan extends AppCompatActivity {
     private DatabaseReference mdatabase;
     private FirebaseAuth mAuth;
     String uuid;
     FrameLayout fl;
-    TextView tvatas, tvk1, tvk2, tvk3, tvt1, tvt2, tvt3,tvp1,tvp2,tvp3,tvtotal;
-    Integer a,b,c,d;
-
+    TextView tvatas, tvk1, tvk2, tvk3, tvt1, tvt2, tvt3,tvp1,tvp2,tvp3,tvtotal, jasa;
+    Integer a,b,c,d,e,nomjasa;
+    private static final String TAG = "pesan";
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    private Context mContext;
+    private Activity mActivity;
+    private ArrayList<Model> imagesList;
+    private holderbarang adminadapter = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,26 +72,35 @@ public class Pesan extends AppCompatActivity {
         tvt3 = findViewById(R.id.textView34);
         tvatas = findViewById(R.id.textView12);
         tvtotal = findViewById(R.id.textView19);
+        jasa = findViewById(R.id.textView28);
         a = 0;
         b=0;
         c=0;
         d=0;
+        nomjasa = 0;
         cekpesanan();
+        //mulai
+        mActivity = Pesan.this;
+        mContext = getApplicationContext();
+        FirebaseApp.initializeApp(this);
+        recyclerView = findViewById(R.id.rva);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        recyclerView.setNestedScrollingEnabled(false);
+        imagesList = new ArrayList<>();
+        showkompor();
     }
 
     public void pilihkompor(View v) {
-        this.finish();
-        startActivity(new Intent(Pesan.this, Pilihkompor.class));
+        showkompor();
     }
 
     public void pilihtab(View v) {
-        this.finish();
-        startActivity(new Intent(Pesan.this, Pilihtabung.class));
+        showtabung();
     }
 
     public void pilihpipa(View v) {
-        this.finish();
-        startActivity(new Intent(Pesan.this, Pilihpipa.class));
+        showpipa();
     }
 
     private void cekpesanan() {
@@ -160,7 +191,7 @@ public class Pesan extends AppCompatActivity {
                 DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
                 DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
-                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setCurrencySymbol("");
                 formatRp.setMonetaryDecimalSeparator(',');
                 formatRp.setGroupingSeparator('.');
 
@@ -191,7 +222,7 @@ public class Pesan extends AppCompatActivity {
                 DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
                 DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
-                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setCurrencySymbol("");
                 formatRp.setMonetaryDecimalSeparator(',');
                 formatRp.setGroupingSeparator('.');
 
@@ -222,7 +253,7 @@ public class Pesan extends AppCompatActivity {
                 DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
                 DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
-                formatRp.setCurrencySymbol("Rp ");
+                formatRp.setCurrencySymbol("");
                 formatRp.setMonetaryDecimalSeparator(',');
                 formatRp.setGroupingSeparator('.');
 
@@ -244,24 +275,103 @@ public class Pesan extends AppCompatActivity {
     private void updateharga(){
         if(a !=0){
             d = a;
+            e = d*30/100;
+            nomjasa = e+d;
         }
         if(a !=0 && b !=0){
             d = a+b;
+            e = d*30/100;
+            nomjasa = e+d;
         }
         if(a !=0 && b !=0 && c !=0){
             d = a+b+c;
+            e = d*30/100;
+            nomjasa = e+d;
         }
 
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
 
-        formatRp.setCurrencySymbol("Rp ");
+        formatRp.setCurrencySymbol("");
         formatRp.setMonetaryDecimalSeparator(',');
         formatRp.setGroupingSeparator('.');
 
         kursIndonesia.setDecimalFormatSymbols(formatRp);
-        String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(d)));
+        String hargarp = kursIndonesia.format(Integer.parseInt(String.valueOf(nomjasa)));
+        String jasarp = kursIndonesia.format(Integer.parseInt(String.valueOf(e)));
         tvtotal.setText(hargarp);
+        jasa.setText(jasarp);
+    }
+
+    private void showkompor(){
+        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("kompor");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imagesList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Model imagemodel = dataSnapshot.getValue(Model.class);
+
+                    imagesList.add(imagemodel);
+                }
+                adminadapter = new holderbarang(mContext, mActivity, (ArrayList<Model>) imagesList);
+                recyclerView.setAdapter(adminadapter);
+                adminadapter.notifyDataSetChanged();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void showtabung(){
+        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("tabung");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imagesList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Model imagemodel = dataSnapshot.getValue(Model.class);
+
+                    imagesList.add(imagemodel);
+                }
+                adminadapter = new holderbarang(mContext, mActivity, (ArrayList<Model>) imagesList);
+                recyclerView.setAdapter(adminadapter);
+                adminadapter.notifyDataSetChanged();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void showpipa(){
+        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("pipa");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                imagesList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Model imagemodel = dataSnapshot.getValue(Model.class);
+
+                    imagesList.add(imagemodel);
+                }
+                adminadapter = new holderbarang(mContext, mActivity, (ArrayList<Model>) imagesList);
+                recyclerView.setAdapter(adminadapter);
+                adminadapter.notifyDataSetChanged();
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }
