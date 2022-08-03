@@ -2,6 +2,7 @@ package com.skripsi.pandujaya;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,6 +20,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,11 +34,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -53,6 +59,7 @@ public class Pesan extends AppCompatActivity {
     private Activity mActivity;
     private ArrayList<Model> imagesList;
     private holderbarang adminadapter = null;
+    Bitmap bmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -374,4 +381,74 @@ public class Pesan extends AppCompatActivity {
         });
     }
 
+
+
+    public void share ( View v){
+        //Bitmap image = getBitmapFromView(fl);
+        //shareBitmap(image);
+        String a = tvk1.getText().toString()+"\n"+tvk2.getText().toString()+"   "+tvk3.getText().toString();
+        String b = tvp1.getText().toString()+"\n"+tvp2.getText().toString()+"   "+tvp3.getText().toString();
+        String c = tvt1.getText().toString()+"\n"+tvt2.getText().toString()+"   "+tvt3.getText().toString();
+        String d = "Jasa Instalasi"+"   "+jasa.getText().toString();
+        String e = "Total"+"   "+ tvtotal.getText().toString();
+        String f = "Dapatkah Saya mendapat penawaran yang lebih menarik dari Pandu Jaya Teknik ?";
+        BigInteger nope = new BigInteger("+6281329100101");
+        String url = "https://api.whatsapp.com/send?phone="+nope+ "&text= Halo\nSaya berniat memesan :"+"\n\n"+a+"\n"+b+"\n"+c+"\n"+d+"\n"+e+"\n\n"+f;
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+
+
+    }
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null) {
+            bgDrawable.draw(canvas);
+        }   else{
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private void shareBitmap(@NonNull Bitmap bitmap)
+    {
+        File cachePath = new File(getExternalCacheDir(), "my_images/");
+        cachePath.mkdirs();
+
+        File file = new File(cachePath, "Image_123.png");
+        FileOutputStream fileOutputStream;
+        try
+        {
+            fileOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+
+        Uri myImageFileUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".provider", file);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        //intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {"user@example.com"});
+        intent.putExtra(Intent.EXTRA_TEXT, "https://api.whatsapp.com/send?phone=+6281329100101&text= Halo\nSaya berniat membeli");
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_STREAM,myImageFileUri);
+        intent.setType("image/jpeg");
+
+        intent.setPackage("com.whatsapp");
+        startActivity(intent);
+    }
+
+
 }
+
