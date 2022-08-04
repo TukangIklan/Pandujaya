@@ -1,4 +1,4 @@
-package com.skripsi.pandujaya;
+package com.skripsi.fernanda;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,7 +110,7 @@ public class Signup extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             assert user != null;
                             String uuid = user.getUid();
-                            mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference();
+                            mdatabase = FirebaseDatabase.getInstance().getReference();
                             mdatabase.child("user").child(uuid).child("username").setValue(etnama.getText().toString());
                             Signup.this.finish();
                             startActivity(new Intent(Signup.this, Pesan.class));

@@ -1,4 +1,4 @@
-package com.skripsi.pandujaya;
+package com.skripsi.fernanda;
 
 import android.content.Context;
 

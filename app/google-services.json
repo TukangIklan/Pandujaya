@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "174739917948",
-    "firebase_url": "https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "ramore-skripsi",
-    "storage_bucket": "ramore-skripsi.appspot.com"
+    "project_number": "630784254773",
+    "firebase_url": "https://skripsinya-nanda-default-rtdb.firebaseio.com",
+    "project_id": "skripsinya-nanda",
+    "storage_bucket": "skripsinya-nanda.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:174739917948:android:20377d52736443573c0df9",
+        "mobilesdk_app_id": "1:630784254773:android:919985b7988d203c87e27c",
         "android_client_info": {
-          "package_name": "com.skripsi.pandujaya"
+          "package_name": "com.skripsi.fernanda"
         }
       },
       "oauth_client": [
         {
-          "client_id": "174739917948-qut1utaa9f4olmup27nhg68entttg55p.apps.googleusercontent.com",
+          "client_id": "630784254773-fu6vh1gcpr3otk2k1k8tfs0tva3lfilp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCItMfm3HDOQpzMwZUx5fibU9LCcdpHO98"
+          "current_key": "AIzaSyAAmA-KB-uzHvakeCeQCkE6CvkE90bqaKU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "174739917948-qut1utaa9f4olmup27nhg68entttg55p.apps.googleusercontent.com",
+              "client_id": "630784254773-fu6vh1gcpr3otk2k1k8tfs0tva3lfilp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

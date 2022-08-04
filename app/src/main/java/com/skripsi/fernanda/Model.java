@@ -1,4 +1,4 @@
-package com.skripsi.pandujaya;
+package com.skripsi.fernanda;
 
 public class Model {
     public String gambar;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.skripsi.pandujaya">
+    package="com.skripsi.fernanda">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,25 +16,25 @@
         android:theme="@style/Theme.PanduJaya"
         tools:targetApi="31">
         <activity
-            android:name=".jumlahpesanan"
+            android:name="com.skripsi.fernanda.jumlahpesanan"
             android:exported="false" />
         <activity
-            android:name=".holderbarang"
+            android:name="com.skripsi.fernanda.holderbarang"
             android:exported="false" />
         <activity
-            android:name=".Resetpass"
+            android:name="com.skripsi.fernanda.Resetpass"
             android:exported="false" />
         <activity
-            android:name=".Pesan"
+            android:name="com.skripsi.fernanda.Pesan"
             android:exported="false" />
         <activity
-            android:name=".Signup"
+            android:name="com.skripsi.fernanda.Signup"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name="com.skripsi.fernanda.Login"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.skripsi.fernanda.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +48,7 @@
             android:resource="@array/preloaded_fonts" />
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.skripsi.pandujaya.provider"
+            android:authorities="com.skripsi.fernanda.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

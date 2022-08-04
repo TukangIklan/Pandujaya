@@ -1,14 +1,12 @@
-package com.skripsi.pandujaya;
+package com.skripsi.fernanda;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +88,7 @@ public class holderbarang extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         formatRp.setGroupingSeparator('.');
 
         kursIndonesia.setDecimalFormatSymbols(formatRp);
-        String hargarp = kursIndonesia.format(Integer.parseInt(model.getHarga()));
+        String hargarp = kursIndonesia.format(Integer. parseInt(model.getHarga()));
         Picasso.get().load(model.getGambar()).into(holder.iv);
         holder.tvnama.setText(model.getJenis());
         holder.tvharga.setText(hargarp);

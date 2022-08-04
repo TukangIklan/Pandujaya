@@ -1,4 +1,4 @@
-package com.skripsi.pandujaya;
+package com.skripsi.fernanda;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,15 +15,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,12 +29,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -111,15 +104,14 @@ public class Pesan extends AppCompatActivity {
     }
 
     private void cekpesanan() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid);
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("user").child(uuid);
         mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("pesanan")) {
                     fl.setVisibility(View.VISIBLE);
                     cekkompor();
-                    cekpipa();
-                    cektabung();
+
                 } else {
                     fl.setVisibility(View.GONE);
                     tvatas.setText("Keranjang Pesanan Anda Kosong");
@@ -135,44 +127,18 @@ public class Pesan extends AppCompatActivity {
 
     }
     private void cekkompor() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan");
+        mdatabase = FirebaseDatabase.getInstance(
+
+        ).getReference().child("user").child(uuid).child("pesanan");
         mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("kompor")) {
                     getdatakompor();
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-    }
-    private void cektabung() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan");
-        mdatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("tabung")) {
                     getdatatabung();
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-    }
-    private void cekpipa() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan");
-        mdatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild("pipa")) {
                     getdatapipa();
                 }
@@ -186,8 +152,9 @@ public class Pesan extends AppCompatActivity {
 
     }
 
+
     private void getdatakompor() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan").child("kompor");
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("user").child(uuid).child("pesanan").child("kompor");
         mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -218,7 +185,7 @@ public class Pesan extends AppCompatActivity {
 
     }
     private void getdatatabung() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan").child("tabung");
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("user").child(uuid).child("pesanan").child("tabung");
         mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -249,7 +216,7 @@ public class Pesan extends AppCompatActivity {
 
     }
     private void getdatapipa() {
-        mdatabase = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("user").child(uuid).child("pesanan").child("pipa");
+        mdatabase = FirebaseDatabase.getInstance().getReference().child("user").child(uuid).child("pesanan").child("pipa");
         mdatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -280,21 +247,9 @@ public class Pesan extends AppCompatActivity {
 
     }
     private void updateharga(){
-        if(a !=0){
-            d = a;
-            e = d*30/100;
-            nomjasa = e+d;
-        }
-        if(a !=0 && b !=0){
-            d = a+b;
-            e = d*30/100;
-            nomjasa = e+d;
-        }
-        if(a !=0 && b !=0 && c !=0){
             d = a+b+c;
             e = d*30/100;
             nomjasa = e+d;
-        }
 
         DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
         DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
@@ -311,7 +266,7 @@ public class Pesan extends AppCompatActivity {
     }
 
     private void showkompor(){
-        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("kompor");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("barang").child("kompor");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -334,7 +289,7 @@ public class Pesan extends AppCompatActivity {
         });
     }
     private void showtabung(){
-        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("tabung");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("barang").child("tabung");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -358,14 +313,13 @@ public class Pesan extends AppCompatActivity {
     }
 
     private void showpipa(){
-        databaseReference = FirebaseDatabase.getInstance("https://ramore-skripsi-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("barang").child("pipa");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("barang").child("pipa");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 imagesList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Model imagemodel = dataSnapshot.getValue(Model.class);
-
                     imagesList.add(imagemodel);
                 }
                 adminadapter = new holderbarang(mContext, mActivity, (ArrayList<Model>) imagesList);
@@ -392,7 +346,7 @@ public class Pesan extends AppCompatActivity {
         String d = "Jasa Instalasi"+"   "+jasa.getText().toString();
         String e = "Total"+"   "+ tvtotal.getText().toString();
         String f = "Dapatkah Saya mendapat penawaran yang lebih menarik dari Pandu Jaya Teknik ?";
-        BigInteger nope = new BigInteger("+6281329100101");
+        BigInteger nope = new BigInteger("+62895346291925");
         String url = "https://api.whatsapp.com/send?phone="+nope+ "&text= Halo\nSaya berniat memesan :"+"\n\n"+a+"\n"+b+"\n"+c+"\n"+d+"\n"+e+"\n\n"+f;
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
@@ -440,7 +394,7 @@ public class Pesan extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         //intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {"user@example.com"});
-        intent.putExtra(Intent.EXTRA_TEXT, "https://api.whatsapp.com/send?phone=+6281329100101&text= Halo\nSaya berniat membeli");
+        intent.putExtra(Intent.EXTRA_TEXT, "https://api.whatsapp.com/send?phone=+62895346291925&text= Halo\nSaya berniat membeli");
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_STREAM,myImageFileUri);
         intent.setType("image/jpeg");
